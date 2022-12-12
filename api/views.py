@@ -26,6 +26,20 @@ def taskList(request):
     return Response(serializer.data)
 
 
+@api_view(['GET'])
+def taskFilter(request):
+    tasks = Task.objects.all()
+    task = request.query_params.get('task')
+    if task is not None:
+        tasks = tasks.filter(title=task)
+    return tasks
+    # tasks = Task.objects.filter(title=pk)
+    # print(tasks)
+    # serializer = TaskSerializer(tasks, many=False)
+    # print(serializer.data)
+    # return Response(serializer.data)
+
+
 """
 This Function going to display Detailed view of one perticuler task with the help of pk.
 """
